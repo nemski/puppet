@@ -24,6 +24,10 @@ describe "the fqdn_rand function" do
     lambda { @scope.function_fqdn_rand([3]) }.should_not raise_error(Puppet::ParseError)
   end
 
+  it "should handle a String as an argument" do
+    @scope.expects(:lookupvar).with("::fqdn").returns("127.0.0.1")
+    lambda { @scope.function_fqdn_rand(["3"]) }.should_not raise_error()
+  end
 
   (1..10).each { |n|
     it "should handle #{n} additional arguments" do
