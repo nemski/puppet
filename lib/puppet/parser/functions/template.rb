@@ -5,6 +5,9 @@ Puppet::Parser::Functions::newfunction(:template, :type => :rvalue, :doc =>
   
   Note that if multiple templates are specified, their output is all
   concatenated and returned as the output of the function.") do |vals|
+    if vals.is_a?(String)
+      vals = [vals]
+    end
     vals.collect do |file|
       # Use a wrapper, so the template can't get access to the full
       # Scope object.
